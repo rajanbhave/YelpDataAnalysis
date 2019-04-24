@@ -42,12 +42,14 @@ We need to modify the Cassandra details in application.properties like the hostI
 7.	CassandraDataWriter writes these dataframes into respective Cassandra tables using the configurations provided in application.properties.
 
 ## Step by Step Project Execution Details - 
-•	**Step** 1 Create a /project directory in your system
+•	**Step 1** Create a /project directory in your system
 
-•	**Step** 2 Fetch the latest code from github using the below command in this directory –<br>
+•	**Step 2** Fetch the latest code from github using the below command in this directory –<br>
+
 ```git clone https://github.com/rajanbhave/YelpDataAnalysis```
 
 •	**Step 3** cd into the project directory and run the below command to create a docker image of code.
+
 ```docker build -t rajan_bhave/yelp-analysis:latest --build-arg SCALA_VERSION=2.11.8 --build-arg SBT_VERSION=0.13.18 --build-arg SPARK_VERSION=2.3.3 --build-arg HADOOP_VERSION=2.7 -f ~/project/docker_configs/Dockerfile ~/project```
 
 The above command will perform the following activities using the Docker file -
@@ -60,6 +62,7 @@ The above command will perform the following activities using the Docker file -
 7.	Change the working directory to our project directory
 
 •	**Step 4** Once the image is created, spin up a spark container cluster using the below command –
+
 ```docker-compose up --scale spark-worker=3```
 
 This command uses the docker-compose.yml as a reference and does the below activities –
@@ -67,7 +70,7 @@ This command uses the docker-compose.yml as a reference and does the below activ
 2.	Creates a new spark master container with the necessary configurations.
 3.	Creates three new spark worker containers with the necessary configurations.
 
-•	**Step 5** Once the cluster is created, we can confirm that by opening the spark web ui on http://<container_ip>:8080
+•	**Step 5** Once the cluster is created, we can confirm that by opening the spark web ui on <i>http://<container_ip>:8080<i/>
 We can see the master and three worker nodes as well as their details on that UI.
 
 •	**Step 6** Now create another container using the below command to run our spark job –
