@@ -53,7 +53,9 @@ https://www.yelp.com/dataset_challenge/dataset
 
 •	**Step 4** cd into the project directory and run the below command to create a docker image of code.
 
-```docker build -t rajan_bhave/yelp-analysis:latest --build-arg SCALA_VERSION=2.11.8 --build-arg SBT_VERSION=0.13.18 --build-arg SPARK_VERSION=2.3.3 --build-arg HADOOP_VERSION=2.7 -f ~/project/docker_configs/Dockerfile ~/project```
+```
+docker build -t rajan_bhave/yelp-analysis:latest --build-arg SCALA_VERSION=2.11.8 --build-arg SBT_VERSION=0.13.18 --build-arg SPARK_VERSION=2.3.3 --build-arg HADOOP_VERSION=2.7 -f ~/project/docker_configs/Dockerfile ~/project
+```
 
 The above command will perform the following activities using the Docker file - <br>
 1.	Install Java JDK 8 <br>
