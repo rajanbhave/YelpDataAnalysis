@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   spark-master:
-    image: manasi_gavande/spark:latest
+    image: rajan_bhave/spark:latest
     container_name: spark-master
     hostname: spark-master
     ports:
