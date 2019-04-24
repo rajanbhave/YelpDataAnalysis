@@ -1,0 +1,24 @@
+CREATE KEYSPACE mykeyspace
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1}
+AND DURABLE_WRITES = false;
+
+
+drop table mykeyspace.avg_top10_user_reviews;
+drop table mykeyspace.oldest_10yelpers;
+
+CREATE TABLE mykeyspace.oldest_10yelpers (
+    user_id text PRIMARY KEY,
+    yelping_since text
+) ;
+
+CREATE TABLE mykeyspace.top_users_avg_stars (
+    name text PRIMARY KEY,
+    category text,
+    avgstars bigint
+);
+
+CREATE TABLE mykeyspace.top10_best_rated_hotels (
+    name text PRIMARY KEY,
+    state text,
+    city text
+);
