@@ -6,7 +6,7 @@ This project showcases the processing of Yelp dataset using Spark 2.3.0 and Scal
 
 The spark code will be compiled and bundled using sbt.
 
-Docker image would be then created using the Docker configuration.
+Yelp Analysis Docker image would be then created using the Docker configuration.
 
 Then we need to spin up a spark container cluster of 4 nodes – one master and three worker nodes,
 which will be used for submitting our jar and executing our queries.
