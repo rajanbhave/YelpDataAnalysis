@@ -15,7 +15,7 @@ services:
       - "SPARK_MASTER_WEBUI_PORT=8080"
     command: "/start-master.sh"
   spark-worker:
-    image: manasi_gavande/spark:latest
+    image: rajan_bhave/spark:latest
     depends_on:
       - spark-master
     ports:
