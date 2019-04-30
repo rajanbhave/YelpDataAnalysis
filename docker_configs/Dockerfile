@@ -36,7 +36,7 @@ RUN mkdir /project
 RUN chmod -R +x /project
 ADD . /project
 
-COPY docker_configs/scripts/* /
+EXPOSE 8080 7077
 
 WORKDIR /project
 
