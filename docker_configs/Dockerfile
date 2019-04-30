@@ -36,6 +36,8 @@ RUN mkdir /project
 RUN chmod -R +x /project
 ADD . /project
 
+COPY docker_configs/scripts/* /
+
 WORKDIR /project
 
 CMD "/usr/local/bin/sbt"
