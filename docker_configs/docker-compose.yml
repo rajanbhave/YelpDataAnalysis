@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   spark-master:
-    image: rajan_bhave/spark:latest
+    image: rajan_bhave/yelp-analysis:latest
     container_name: spark-master
     hostname: spark-master
     ports:
@@ -15,7 +15,7 @@ services:
       - "SPARK_MASTER_WEBUI_PORT=8080"
     command: "/start-master.sh"
   spark-worker:
-    image: rajan_bhave/spark:latest
+    image: rajan_bhave/yelp-analysis:latest
     depends_on:
       - spark-master
     ports:
