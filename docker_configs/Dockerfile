@@ -16,6 +16,9 @@ RUN tar -xzf spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz && \
     mv spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION /spark && \
     rm spark-$SPARK_VERSION-bin-hadoop$HADOOP_VERSION.tgz
 
+RUN apk --update add bash && \
+    apk add dos2unix
+
 RUN \
   echo "$SCALA_VERSION $SBT_VERSION" && \
   mkdir -p /usr/lib/jvm/java-1.8-openjdk/jre && \
@@ -33,10 +36,16 @@ RUN \
   sbt sbt-version || sbt sbtVersion || true
 
 RUN mkdir /project
-RUN chmod -R +x /project
+
 ADD . /project
 
-EXPOSE 8080 7077
+RUN find /project -type f -print0 | xargs -0 dos2unix
+
+RUN chmod -x /project
+
+RUN chmod -R +x /project/docker_configs/scripts/*
+
+RUN cp /project/docker_configs/scripts/* /
 
 WORKDIR /project
 
