@@ -42,19 +42,18 @@ We need to modify the Cassandra details in application.properties like the hostI
 7.	CassandraDataWriter writes these dataframes into respective Cassandra tables using the configurations provided in application.properties. <br>
 
 ## Step by Step Project Execution Details - 
-•	**Step 1** Create a /project directory in your system
 
-•	**Step 2** Fetch the latest code from github using the below command in this directory –<br>
+•	**Step 1** Fetch the latest code from github using the below command in this directory –<br>
 
-```git clone https://github.com/rajanbhave/YelpDataAnalysis```
+```git clone https://github.com/rajanbhave/YelpDataAnalysis ~/project --config core.autocrlf=false```
 
-•	**Step 3** Download the yelp dataset from the below link and copy it to the project directory
+•	**Step 2** Download the yelp dataset from the below link and copy it to the project directory
 https://www.yelp.com/dataset_challenge/dataset
 
-•	**Step 4** cd into the project directory and run the below command to create a docker image of code.
+•	**Step 3** Run the below command to build a docker image of 'yelp-analysis'.
 
 ```
-docker build -t rajan_bhave/yelp-analysis:latest --build-arg SCALA_VERSION=2.11.8 --build-arg SBT_VERSION=0.13.18 --build-arg SPARK_VERSION=2.3.3 --build-arg HADOOP_VERSION=2.7 -f ~/project/docker_configs/Dockerfile ~/project
+docker build -t rajanbhave/yelp-analysis:latest --build-arg SCALA_VERSION=2.11.8 --build-arg SBT_VERSION=0.13.18 --build-arg SPARK_VERSION=2.3.3 --build-arg HADOOP_VERSION=2.7 -f ~/project/docker_configs/Dockerfile ~/project
 ```
 
 The above command will perform the following activities using the Docker file - <br>
@@ -66,27 +65,27 @@ The above command will perform the following activities using the Docker file - 
 6.	Copy the code and required scripts to container image folders <br>
 7.	Change the working directory to our project directory <br>
 
-•	**Step 5** Once the image is created, spin up a spark container cluster using the below command –
+•	**Step 4** Once the image is created, spin up a spark container cluster using the below command –
 
-```docker-compose up --scale spark-worker=3```
+```docker-compose -f ~/project/docker_configs/docker-compose.yml up --scale spark-worker=3```
 
 This command uses the docker-compose.yml as a reference and does the below activities – <br>
-1.	Creates a new container network ‘spark-network’ <br>
+1.	Creates a new container network ‘dockerconfigs_spark-network’ <br>
 2.	Creates a new spark master container with the necessary configurations. <br>
 3.	Creates three new spark worker containers with the necessary configurations. <br>
 
-•	**Step 6** Once the cluster is created, we can confirm that by opening the spark web ui on <i>http://<container_ip>:8080</i>
+•	**Step 5** Once the cluster is created, we can confirm that by opening the spark web ui on <i>http://<container_ip>:8080</i>
 
 We can see the master and three worker nodes as well as their details on that UI.
 
-•	**Step 7** Now create another container using the below command to run our spark job –
+•	**Step 6** Now create another container using the below command to run our spark job –
 ```
 docker run --rm -it -e SPARK_MASTER="spark://spark-master:7077" \
---network spark_network -w /project/yelp-analysis/ \
-    rajan_bhave/yelp-analysis:latest /bin/bash
+--network dockerconfigs_spark-network -w /project/yelp-analysis/ \
+    rajanbhave/yelp-analysis:latest /bin/bash
 ```
 
-•	**Step 8** Once this container is created, run the below spark job which will run on the container spark cluster. <br>
+•	**Step 7** Once this container is created, run the below spark job which will run on the container spark cluster. <br>
 It will accept the yelp dataset tar as input file. <br>
 Edit the /project/application.properties and add the Cassandra host IP address. <br>
 This jar will perform the required analysis and store the results in Cassandra DB. <br>
