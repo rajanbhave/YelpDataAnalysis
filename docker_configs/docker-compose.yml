@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   spark-master:
-    image: rajan_bhave/yelp-analysis:latest
+    image: rajanbhave/yelp-analysis:latest
     container_name: spark-master
     hostname: spark-master
     ports:
@@ -13,9 +13,9 @@ services:
       - "SPARK_LOCAL_IP=spark-master"
       - "SPARK_MASTER_PORT=7077"
       - "SPARK_MASTER_WEBUI_PORT=8080"
-    command: "/project/docker_configs/scripts/start-master.sh"
+    command: "/start-master.sh"
   spark-worker:
-    image: rajan_bhave/yelp-analysis:latest
+    image: rajanbhave/yelp-analysis:latest
     depends_on:
       - spark-master
     ports:
@@ -25,9 +25,10 @@ services:
     environment:
       - "SPARK_MASTER=spark://spark-master:7077"
       - "SPARK_WORKER_WEBUI_PORT=8080"
-    command: "/project/docker_configs/scripts/start-worker.sh"
+    command: "/start-worker.sh"
 networks:
   spark-network:
     driver: bridge
     ipam:
       driver: default
+      
