@@ -94,7 +94,7 @@ docker run --rm -it -e SPARK_MASTER="spark://spark-master:7077" \
     rajanbhave/yelp-analysis:latest /bin/bash
 ```
 
-•	**Step 8** Edit the application.properties file and enter the appropriate values for cassandra host, cassandra username, cassandra password, cassandra keyspace -
+•	**Step 8** Once this container is created, edit the application.properties file and enter the appropriate values for cassandra host, cassandra username, cassandra password, cassandra keyspace -
 
 dev.cassandra.connection.host = <br>
 dev.cassandra.auth.username = <br>
@@ -102,7 +102,7 @@ dev.cassandra.auth.password = <br>
 dev.cassandra.keyspace = yelp_analysis_ks <br>
 
 
-•	**Step 9** Once this container is created, run the below spark job which will run on the container spark cluster. <br>
+•	**Step 9** Then run the below spark job on this container, which will execute on the container spark cluster. <br>
 It will accept the yelp dataset tar as input file. <br>
 Edit the /project/application.properties and add the Cassandra host IP address. <br>
 This jar will perform the required analysis and store the results in Cassandra DB. <br>
