@@ -94,7 +94,7 @@ docker run --rm -it -e SPARK_MASTER="spark://spark-master:7077" \
     rajanbhave/yelp-analysis:latest /bin/bash
 ```
 
-•	**Step 8** Edit the application.properties file and enter the appropriate values for cassandra host, cassandra username, cassandra password -
+•	**Step 8** Edit the application.properties file and enter the appropriate values for cassandra host, cassandra username, cassandra password, cassandra keyspace -
 
 dev.cassandra.connection.host = <br>
 dev.cassandra.auth.username = <br>
